@@ -6,4 +6,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "hbstudent")
 public class Student {
+    private int id;
+    private String firstName;
+
+    public Student() {
+
+    }
 }
