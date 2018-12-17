@@ -39,6 +39,10 @@ public class BiDirectional {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        finally {
+            session.close();
+            factory.close();
+        }
 
     }
 }
