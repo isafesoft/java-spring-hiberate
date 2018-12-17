@@ -6,8 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-
-public class CreateInstructor {
+public class BiDirectional {
     public static void main(String[] args) {
         SessionFactory factory = new Configuration().
                 configure().
@@ -20,27 +19,24 @@ public class CreateInstructor {
 
         try {
             // create the objects
-            Instructor tempInstructor = new Instructor("Chad", "Darby",
-                    "darby@gmail.com");
-
-            InstructorDetail tempInstructorDetail =
-                    new InstructorDetail("http://ytb.com/darby", "love code");
-
-            // associate the object
-            tempInstructor.setInstructorDetail(tempInstructorDetail);
-
-            System.out.println("Saving instructor:" + tempInstructor);
             session.beginTransaction();
-            session.save(tempInstructor);
+            int id = 2;
+            InstructorDetail tempInstructorDetail =
+                    session.get(InstructorDetail.class, id);
+
+            System.out.println("tempInstructorDetail: " + tempInstructorDetail);
+
+            // print the associated instructor
+            System.out.println("the associated instructor: " +
+                    tempInstructorDetail.getInstructor());
+
             session.getTransaction().commit();
             //
             // Note: this will ALSO save the details object
             // because of CascadeType.ALL
             //
-            session.beginTransaction();
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 

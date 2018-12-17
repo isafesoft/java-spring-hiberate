@@ -5,6 +5,18 @@ import javax.persistence.*;
 @Entity
 @Table(name = "instructor_detail")
 public class InstructorDetail {
+
+    @OneToOne(mappedBy = "instructorDetail", cascade = CascadeType.ALL)
+    private Instructor instructor;
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
     // annotate the class as an entity and map to db table
 
     // define the fields
@@ -35,6 +47,7 @@ public class InstructorDetail {
         this.youtubeChannel = youtubeChannel;
         this.hobby = hobby;
     }
+
 
     public int getId() {
         return id;

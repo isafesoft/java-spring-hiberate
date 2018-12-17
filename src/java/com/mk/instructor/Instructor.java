@@ -34,6 +34,9 @@ public class Instructor {
     @Column(name = "email")
     private String email;
 
+    public Instructor() {
+    }
+
     public Instructor(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
