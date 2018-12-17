@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 
 public class CreateStudentMain {
     public static void main(String[] args) {
@@ -21,6 +23,17 @@ public class CreateStudentMain {
             session.beginTransaction();
 
             session.save(tempStudent);
+            Student readStudent = session.get(Student.class, tempStudent.getId());
+            System.out.println("read student, " + readStudent);
+
+            // Retrieve all students
+            List<Student> theStudents = session.createQuery("from Student").getResultList();
+
+            for(Student temp: theStudents )
+            {
+                System.out.println(temp);
+            }
+
 
             // commit transaction
             session.getTransaction().commit();
