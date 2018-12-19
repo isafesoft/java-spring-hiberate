@@ -1,6 +1,8 @@
 package com.mk.instructor;
 
+import java.util.List;
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "course")
@@ -17,6 +19,15 @@ public class Course {
                          CascadeType.DETACH, CascadeType.REFRESH}) //do not include REMOVE
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+            CascadeType.DETACH, CascadeType.REFRESH}) //do not include REMOVE
+    @JoinTable(
+            name = "course_student",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<Student> students;
 
     public Course() {
 
@@ -48,6 +59,23 @@ public class Course {
 
     public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    // add a convenience method
+    public void addStudent(Student student) {
+        if(null == student) {
+            this.students = new ArrayList<>();
+        }
+
+        this.students.add(student);
     }
 
     @Override
